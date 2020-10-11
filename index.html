@@ -15,10 +15,103 @@
 <body class="container">
 
 <h2 class="text-center">Javascript Tutorial</h2>
-
+<div class="row">
+    <div class="col-3">
+    Who are you?
+    </div>
+    <div id="userDesc" class="col-9">
+    
+    </div>
+</div>
 <script>
 window.onload = function() {
   
+    /**
+    To escape special characters, you use the backslash \ character.
+    */
+    let str = 'I\'m Folau Kaveinga.';
+    document.getElementById("userDesc").innerHTML = str;
+    let str1 = "I\"m Folau Kaveinga.";
+    let str2 = 'I\'m slash \\';
+
+    document.getElementById("userDesc").innerHTML += str1;
+    document.getElementById("userDesc").innerHTML += str2;
+
+    let strLength = str.length;
+    console.log("strLength: "+strLength);
+
+    /**
+    To access the characters in a string, you use the array-like [] notation with the zero-based index.
+    */
+    let name = "Folau Kaveinga";
+    let letter = name[4];
+    console.log("letter: "+letter);
+
+    let active = false;
+    let activeStr = active.toString(); 
+    console.log("activeStr: "+activeStr);// "false"
+
+    let five = 5;
+    let fiveStr = new String(five);
+    console.log("fiveStr: "+fiveStr);// 5
+
+    /*
+    String concatenation
+    */
+    let firstName = 'Folau';
+    let fullName = firstName.concat(' ','Kaveinga', ' ', 'Jr');
+    console.log(fullName); // "Folau Kaveinga Jr"
+
+     firstName = 'Folau';
+     fullName = firstName + ' '+ 'Kaveinga'+' '+'Jr';
+    console.log(fullName); // "Folau Kaveinga Jr"
+
+    /*
+    Substring
+    */
+    let phrase = "I love coding";
+
+    console.log(phrase.substr(2, 4)); // "love"
+    console.log(phrase.substr(7, 6)); // "coding"
+    console.log(phrase.substring(7, 13)); // "coding"
+
+    /*
+    indexOf - To locate a substring in a string, you use the indexOf() method:
+    */
+
+    phrase = "I love coding so much";
+    console.log(phrase.indexOf("o")); // 3
+    console.log(phrase.indexOf('o', 3)); // 3
+    console.log(phrase.lastIndexOf('o')); // 15
+    console.log(phrase.lastIndexOf('are')); // -1
+
+    console.log( "Widget".includes("id") ); // true
+    console.log( "Widget".includes("id", 3) ); // false, from position 3 there is no "id"
+
+    console.log( "Widget".startsWith("Wid") ); // true, "Widget" starts with "Wid"
+    console.log( "Widget".endsWith("get") ); // true, "Widget" ends with "get"
+
+    /*
+    Remove leading and trailing whitespace
+    */
+
+    name = ' Folau ';
+    let strippedName= name.trim();
+    let leadingStrippedName= name.trimStart();
+    let trailingStrippedName= name.trimEnd();
+    console.log(strippedName); // "Folau"
+    console.log(leadingStrippedName); // "Folau "
+    console.log(trailingStrippedName); // " Folau"
+
+    /*
+    Replace substring
+    */
+
+    phrase = "I love coding so much";
+    // replace "the" with "a"
+    let newPhrase = phrase.replace(/so/g, "very");
+    console.log(newPhrase); // "I love coding very much"
+    console.log(phrase); // "I love coding so much"
 };
 </script>
 </body>
