@@ -24,6 +24,7 @@
     </div>
 </div>
 <script>
+"use strict";
 window.onload = function() {
   
     /**
@@ -68,6 +69,7 @@ window.onload = function() {
 
     /*
     Substring
+    
     */
     let phrase = "I love coding";
 
@@ -85,11 +87,11 @@ window.onload = function() {
     console.log(phrase.lastIndexOf('o')); // 15
     console.log(phrase.lastIndexOf('are')); // -1
 
-    console.log( "Widget".includes("id") ); // true
-    console.log( "Widget".includes("id", 3) ); // false, from position 3 there is no "id"
+    console.log( "Folau".includes("lau") ); // true
+    console.log( "Folau".includes("ol", 4 )); // false, from position 4 there is no "ol"
 
-    console.log( "Widget".startsWith("Wid") ); // true, "Widget" starts with "Wid"
-    console.log( "Widget".endsWith("get") ); // true, "Widget" ends with "get"
+    console.log( "Folau".startsWith("Fol") ); // true, "Folau" starts with "Fol"
+    console.log( "Folau".endsWith("lau") ); // true, "Folau" ends with "lau"
 
     /*
     Remove leading and trailing whitespace
@@ -112,6 +114,45 @@ window.onload = function() {
     let newPhrase = phrase.replace(/so/g, "very");
     console.log(newPhrase); // "I love coding very much"
     console.log(phrase); // "I love coding so much"
+
+    /*
+    * undefined variables
+    */
+    var undefinedMessage;
+
+    console.log(undefinedMessage); // undefined
+
+    /*
+    * Local variables
+    */
+    function sayHi(){
+        var helloMsg = "Welcome!";
+        console.log("helloMsg: "+helloMsg);
+    }
+
+    sayHi();
+
+    //console.log("helloMsg: "+helloMsg);//Uncaught ReferenceError: helloMsg is not defined
+
+    /*
+    * Global variables
+    */
+    var message = "Hello";
+    function sayHello() {
+        // local variable
+        message = 'Hi';
+        console.log(message); // which message?
+    }
+    sayHello();// Hi
+    console.log(message); // Hi
+
+
+    /*
+    * NAN type
+    */
+    console.log('john'/2); // NaN;
+    console.log(NaN/2); // NaN
+    console.log(NaN == NaN); // false
 };
 </script>
 </body>
