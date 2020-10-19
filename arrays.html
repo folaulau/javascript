@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Javascript Tutorial</title>
+        <!-- jQuery -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <!-- Bootstrap -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    </head>
+<body class="container">
+
+<h2 class="text-center">Javascript Arrays Tutorial</h2>
+
+<script>
+window.onload = function() {
+
+    /*
+    * Array declaration - use new Array
+    */
+    let scores = new Array(12,34,56,100);
+
+    console.log("scores");
+    console.log(scores);
+
+    /*
+    * Array declaration - use []
+    */  
+    let names = ['John','Peter','James'];
+
+    console.log("names");
+    console.log(names);
+
+    /*
+    * Access elements on Arrays
+    */
+    let highScore = scores[3];
+    console.log("highScore: "+highScore);
+    
+    scores[3] = 505; 
+    console.log("highScore: "+scores[3]);//505
+
+    /*
+    * Array size
+    */
+    console.log("scores.length: "+scores.length);//4
+
+    names.push('Juan');
+    console.log("names");
+    console.log(names);
+
+    /*
+    * Objects vs Arrays.
+    */
+    let arr = ["Peter",25];
+    console.log("arr[0]: "+arr[0]);//Peter
+    console.log("arr[1]: "+arr[1]);//25
+
+    let obj = {"name":"Peter","age":"25"};
+    console.log("obj.name: "+obj.name);//Peter
+
+    /*
+    * Remove elements from the end of the array, use the pop method.
+    */
+    names.pop();
+    console.log("names");
+    console.log(names);
+
+    /*
+    * Remove elements from the beginning of the array, use the shift method.
+    */
+    names.shift();
+    console.log("names");
+    console.log(names);
+
+
+    /*
+    * The splice() method can be used to add new items to an array:
+    *
+    * The first parameter (2) defines the position where new elements should be added (spliced in).
+    * The second parameter (0) defines how many elements should be removed.
+    * The rest of the parameters ("Lemon" , "Kiwi") define the new elements to be added.
+    * The splice() method returns an array with the deleted items:
+    */
+    names.splice(2, 0, "Lemon", "Kiwi");
+    console.log("names");
+    console.log(names);
+
+
+    /*
+    * Sorting, The sort() method sorts an array alphabetically:
+    */
+
+    names.sort();
+    console.log("names");
+    console.log(names);
+};
+</script>
+</body>
+</html> 
