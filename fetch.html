@@ -16,10 +16,147 @@
 
 <h2 class="text-center">Javascript Fetch Tutorial</h2>
 
+<div class="row">
+    <div class="col-2">
+
+    </div>
+    <div class="col-10">
+        <h4>Make sure to run the spring boot javascript project</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-1">
+
+    </div>
+    <div class="col-4">
+        Sign up user using POST
+        <br>
+        <button onclick="signup()" type="button" class="btn btn-outline-primary">Sign Up</button>
+    </div>
+    <div class="col-7" id="signUpContent">
+        
+    </div>
+</div>
+<br>
+<br>
+<div class="row">
+    <div class="col-1">
+
+    </div>
+    <div class="col-4">
+        Get user using GET
+        <br>
+        <button onclick="getUser()" type="button" class="btn btn-outline-primary">Get User</button>
+    </div>
+    <div class="col-7" id="getUserContent">
+        
+    </div>
+</div>
+<br>
+<br>
+<div class="row">
+    <div class="col-1">
+
+    </div>
+    <div class="col-4">
+        Update user using PUT
+        <br>
+        <button onclick="updateUser()" type="button" class="btn btn-outline-primary">Update User</button>
+    </div>
+    <div class="col-7" id="updateUserContent">
+        
+    </div>
+</div>
 <script>
-window.onload = function() {
-  
-};
+    async function signup(){
+        console.log("sign up");
+        let headers = {
+            "Content-Type": "application/json;charset=utf-8",
+            "x-api-key":"lovemesomecoding"
+        };
+        let user = {
+            firstName: 'Folau',
+            lastName: 'Kaveinga',
+            email: 'folaukaveinga@gmail.com'
+        };
+
+        let options = {};
+        options.method = "POST";
+        options.body = JSON.stringify(user);
+        options.headers = headers;
+
+        let url = "http://localhost:8888/users/signup";
+
+        let response = await fetch(url, options).then(response => response.json());
+        console.log(response);
+        
+        let content = "";
+        content += "id: "+response.id+"<br>";
+        content += "firstName: "+response.firstName+"<br>";
+        content += "lastName: "+response.lastName+"<br>";
+        content += "email: "+response.email+"<br>";
+
+        document.getElementById("signUpContent").innerHTML = content;
+    }
+
+    async function getUser(){
+        console.log("getUser");
+        let headers = {
+            "Content-Type": "application/json;charset=utf-8",
+            "token":"lovemesomecoding-token"
+        };
+
+        let options = {};
+        options.method = "GET";
+        options.headers = headers;
+
+        let id = 1;
+
+        let url = "http://localhost:8888/users/"+id;
+
+        let response = await fetch(url, options).then(response => response.json());
+        console.log(response);
+        
+        let content = "";
+        content += "id: "+response.id+"<br>";
+        content += "firstName: "+response.firstName+"<br>";
+        content += "lastName: "+response.lastName+"<br>";
+        content += "email: "+response.email+"<br>";
+
+        document.getElementById("getUserContent").innerHTML = content;
+    }
+
+    async function updateUser(){
+        console.log("update user");
+        let headers = {
+            "Content-Type": "application/json;charset=utf-8",
+            "token":"lovemesomecoding"
+        };
+        let user = {
+            firstName: 'Folau',
+            lastName: 'Kaveinga',
+            email: 'folaukaveinga@gmail.com',
+            id: 1
+        };
+
+        let options = {};
+        options.method = "PUT";
+        options.body = JSON.stringify(user);
+        options.headers = headers;
+
+        let url = "http://localhost:8888/users";
+
+        let response = await fetch(url, options).then(response => response.json());
+        console.log(response);
+        
+        let content = "";
+        content += "id: "+response.id+"<br>";
+        content += "firstName: "+response.firstName+"<br>";
+        content += "lastName: "+response.lastName+"<br>";
+        content += "email: "+response.email+"<br>";
+
+        document.getElementById("updateUserContent").innerHTML = content;
+    }
 </script>
 </body>
 </html> 
