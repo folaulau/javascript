@@ -98,6 +98,25 @@ window.onload = function() {
     names.sort();
     console.log("names");
     console.log(names);
+
+    /*
+    * Array iteration
+    */
+
+    var numbers = [45, 4, 9, 16, 25];
+
+    // value
+    numbers.forEach(function(number){
+        console.log("number: "+number);
+    });
+    // value, index
+    numbers.forEach(function(number,index){
+        console.log("number: "+number+", index: "+index);
+    });
+    // value, index, array
+    numbers.forEach(function(number,index, arr){
+        console.log("number: "+number+", index: "+index+", original array: "+arr);
+    });
 };
 </script>
 </body>
