@@ -25,6 +25,14 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-4">
+        
+    </div>
+    <div class="col-8" id="errorMsg" style="color: red;">
+        
+    </div>
+</div>
+<div class="row">
     <div class="col-1">
 
     </div>
@@ -87,16 +95,24 @@
 
         let url = "http://localhost:8888/users/signup";
 
-        let response = await fetch(url, options).then(response => response.json());
-        console.log(response);
-        
-        let content = "";
-        content += "id: "+response.id+"<br>";
-        content += "firstName: "+response.firstName+"<br>";
-        content += "lastName: "+response.lastName+"<br>";
-        content += "email: "+response.email+"<br>";
+        let response = await fetch(url, options);
 
-        document.getElementById("signUpContent").innerHTML = content;
+        if (response.ok) { // if HTTP-status is 200-299
+            let data = await response.json();
+
+            let content = "";
+            content += "id: "+data.id+"<br>";
+            content += "firstName: "+data.firstName+"<br>";
+            content += "lastName: "+data.lastName+"<br>";
+            content += "email: "+data.email+"<br>";
+
+            document.getElementById("signUpContent").innerHTML = content;
+        } else {
+            let error = await response.json();
+            console.log(error);
+            document.getElementById("errorMsg").innerHTML = error.message;
+        }
+        
     }
 
     async function getUser(){
@@ -114,16 +130,25 @@
 
         let url = "http://localhost:8888/users/"+id;
 
-        let response = await fetch(url, options).then(response => response.json());
-        console.log(response);
+        let response = await fetch(url, options);
         
-        let content = "";
-        content += "id: "+response.id+"<br>";
-        content += "firstName: "+response.firstName+"<br>";
-        content += "lastName: "+response.lastName+"<br>";
-        content += "email: "+response.email+"<br>";
+        if (response.ok) { // if HTTP-status is 200-299
+            let data = await response.json();
 
-        document.getElementById("getUserContent").innerHTML = content;
+            let content = "";
+            content += "id: "+data.id+"<br>";
+            content += "firstName: "+data.firstName+"<br>";
+            content += "lastName: "+data.lastName+"<br>";
+            content += "email: "+data.email+"<br>";
+
+            document.getElementById("getUserContent").innerHTML = content;
+
+        } else {
+            let error = await response.json();
+            console.log(error);
+            document.getElementById("errorMsg").innerHTML = error.message;
+        }
+        
     }
 
     async function updateUser(){
@@ -146,16 +171,27 @@
 
         let url = "http://localhost:8888/users";
 
-        let response = await fetch(url, options).then(response => response.json());
-        console.log(response);
-        
-        let content = "";
-        content += "id: "+response.id+"<br>";
-        content += "firstName: "+response.firstName+"<br>";
-        content += "lastName: "+response.lastName+"<br>";
-        content += "email: "+response.email+"<br>";
+        let response = await fetch(url, options);
+        //console.log(response);
 
-        document.getElementById("updateUserContent").innerHTML = content;
+        if (response.ok) { // if HTTP-status is 200-299
+            let data = await response.json();
+
+            let content = "";
+            content += "id: "+data.id+"<br>";
+            content += "firstName: "+data.firstName+"<br>";
+            content += "lastName: "+data.lastName+"<br>";
+            content += "email: "+data.email+"<br>";
+
+            document.getElementById("updateUserContent").innerHTML = content;
+
+        } else {
+            let error = await response.json();
+            console.log(error);
+            document.getElementById("errorMsg").innerHTML = error.message;
+        }
+        
+        
     }
 </script>
 </body>
