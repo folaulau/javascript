@@ -31,9 +31,6 @@ public class UserServiceImp implements UserService {
         user.setFirstName("Folau");
         user.setLastName("Kaveinga");
         user.setEmail("folaukaveinga@gmail.com");
-        if (true) {
-            throw new IllegalAccessError("Cannot access this endpoint");
-        }
         return user;
 
     }
