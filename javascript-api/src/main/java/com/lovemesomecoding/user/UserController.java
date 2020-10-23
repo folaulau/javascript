@@ -69,19 +69,20 @@ public class UserController {
 
     @ApiOperation(value = "Upload Document")
     @PostMapping(value = "/document", consumes = "multipart/form-data")
-    public ResponseEntity<Boolean> uploadFile(@RequestHeader(name = "token") String token, @ApiParam(name = "file", required = true, value = "file") @RequestPart MultipartFile file) {
+    public ResponseEntity<UploadFileResultDTO> uploadFile(@RequestHeader(name = "token") String token, @ApiParam(name = "file", required = true, value = "file") @RequestPart MultipartFile file) {
         log.info("uploadFiles(token={})", token);
 
         log.info("fileName={}", file.getOriginalFilename());
         log.info("fileSize={}", file.getSize());
         log.info("fileType={}", file.getContentType());
 
-        return new ResponseEntity<>(true, HttpStatus.OK);
+        return new ResponseEntity<>(new UploadFileResultDTO(true), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Upload Documents")
     @PostMapping(value = "/documents", consumes = "multipart/form-data")
-    public ResponseEntity<Boolean> uploadFiles(@RequestHeader(name = "token") String token, @ApiParam(name = "files", required = true, value = "files") @RequestPart List<MultipartFile> files) {
+    public ResponseEntity<UploadFileResultDTO> uploadFiles(@RequestHeader(name = "token") String token,
+            @ApiParam(name = "files", required = true, value = "files") @RequestPart List<MultipartFile> files) {
         log.info("uploadFiles(token={})", token);
 
         for (MultipartFile file : files) {
@@ -91,7 +92,7 @@ public class UserController {
             System.out.println();
         }
 
-        return new ResponseEntity<>(true, HttpStatus.OK);
+        return new ResponseEntity<>(new UploadFileResultDTO(true), HttpStatus.OK);
     }
 
 }
