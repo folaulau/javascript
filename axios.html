@@ -11,10 +11,11 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     </head>
 <body class="container">
 
-<h2 class="text-center">Javascript Fetch Tutorial</h2>
+<h2 class="text-center">Javascript Axios Tutorial</h2>
 
 <div class="row">
     <div class="col-2">
@@ -105,10 +106,17 @@
     </div>
 </div>
 <script>
+    const axiosInstance = axios.create({
+        baseURL: 'http://localhost:8888',
+        timeout: 1000,
+        headers: {
+            "Content-type": "application/json",
+            "token": "foobar"
+        }
+    });
     async function signup(){
         console.log("sign up");
         let headers = {
-            "Content-Type": "application/json",
             "x-api-key":"lovemesomecoding"
         };
         let user = {
@@ -119,15 +127,17 @@
 
         let options = {};
         options.method = "POST";
-        options.body = JSON.stringify(user);
+        options.data = JSON.stringify(user);
         options.headers = headers;
 
-        let url = "http://localhost:8888/users/signup";
+        let url = "/users/signup";
 
-        let response = await fetch(url, options);
+        let response = await axiosInstance(url, options);
 
-        if (response.ok) { // if HTTP-status is 200-299
-            let data = await response.json();
+        console.log(response);
+
+        if (response.status >= 200) { 
+            let data = await response.data;
 
             let content = "";
             content += "id: "+data.id+"<br>";
@@ -148,7 +158,6 @@
     async function getUser(){
         console.log("getUser");
         let headers = {
-            "Content-Type": "application/json",
             "token":"lovemesomecoding-token"
         };
 
@@ -158,12 +167,12 @@
 
         let id = 1;
 
-        let url = "http://localhost:8888/users/"+id;
+        let url = "/users/"+id;
 
-        let response = await fetch(url, options);
+        let response = await axiosInstance(url, options);
         
-        if (response.ok) { // if HTTP-status is 200-299
-            let data = await response.json();
+        if (response.status >= 200) { 
+            let data = await response.data;
 
             let content = "";
             content += "id: "+data.id+"<br>";
@@ -174,7 +183,7 @@
             document.getElementById("getUserContent").innerHTML = content;
             document.getElementById("errorMsg").innerHTML = "";
         } else {
-            let error = await response.json();
+            let error = await response.data;
             console.log(error);
             document.getElementById("errorMsg").innerHTML = error.message;
         }
@@ -184,7 +193,6 @@
     async function updateUser(){
         console.log("update user");
         let headers = {
-            "Content-Type": "application/json",
             "token":"lovemesomecoding"
         };
         let user = {
@@ -199,13 +207,13 @@
         options.body = JSON.stringify(user);
         options.headers = headers;
 
-        let url = "http://localhost:8888/users";
+        let url = "/users";
 
-        let response = await fetch(url, options);
+        let response = await axiosInstance(url, options);
         //console.log(response);
 
-        if (response.ok) { // if HTTP-status is 200-299
-            let data = await response.json();
+        if (response.status >= 200) { 
+            let data = await response.data;
 
             let content = "";
             content += "id: "+data.id+"<br>";
@@ -216,7 +224,7 @@
             document.getElementById("updateUserContent").innerHTML = content;
             document.getElementById("errorMsg").innerHTML = "";
         } else {
-            let error = await response.json();
+            let error = await response.data;
             console.log(error);
             document.getElementById("errorMsg").innerHTML = error.message;
         }
@@ -232,22 +240,36 @@
         formData.append('file', fileField.files[0]);
 
         let headers = {
-            "token":"lovemesomecoding"
+            "token":"lovemesomecoding",
+            "Content-Type": "multipart/form-data"
         };
 
-        let options = {};
-        options.method = "POST";
-        options.body = formData;
+        let options = {
+            // `onUploadProgress` allows handling of progress events for uploads
+            // browser only
+            onUploadProgress: function (progressEvent) {
+                console.log("progressEvent");
+                console.log(progressEvent);
+            },
+            // `onDownloadProgress` allows handling of progress events for downloads
+            // browser only
+            onDownloadProgress: function (progressEvent) {
+                console.log("progressEvent");
+                console.log(progressEvent);
+            }
+        };
         options.headers = headers;
 
-        let url = "http://localhost:8888/users/document";
+        let url = "/users/document";
 
-        let response = await fetch(url, options);
+        let response = await axiosInstance.post(url, formData, options);
 
-        if (response.ok) { // if HTTP-status is 200-299
-            let data = await response.json();
+        console.log(response);
 
-            document.getElementById("uploadFileStatus").innerHTML = "uploaded: "+data;
+        if (response.status >= 200) { 
+            let data = await response.data;
+
+            document.getElementById("uploadFileStatus").innerHTML = "uploaded: "+data.finishUpload;
             document.getElementById("errorMsg").innerHTML = "";
         } else {
             let error = await response.json();
@@ -268,22 +290,35 @@
         }
 
         let headers = {
-            "token":"lovemesomecoding"
+            "token":"lovemesomecoding",
+            "Content-Type":"multipart/form-data"
         };
 
-        let options = {};
-        options.method = "POST";
-        options.body = formData;
+        let options = {
+            // `onUploadProgress` allows handling of progress events for uploads
+            // browser only
+            onUploadProgress: function (progressEvent) {
+                console.log("progressEvent");
+                console.log(progressEvent);
+            },
+            // `onDownloadProgress` allows handling of progress events for downloads
+            // browser only
+            onDownloadProgress: function (progressEvent) {
+                console.log("progressEvent");
+                console.log(progressEvent);
+            }
+        };
+
         options.headers = headers;
 
-        let url = "http://localhost:8888/users/documents";
+        let url = "/users/documents";
 
-        let response = await fetch(url, options);
+        let response = await axiosInstance.post(url, formData, options);
 
-        if (response.ok) { // if HTTP-status is 200-299
-            let data = await response.json();
+        if (response.status >= 200) { 
+            let data = await response.data;
 
-            document.getElementById("uploadFileStatus").innerHTML = "uploaded: "+data;
+            document.getElementById("uploadFileStatus").innerHTML = "uploaded: "+data.finishUpload;
             document.getElementById("errorMsg").innerHTML = "";
 
         } else {

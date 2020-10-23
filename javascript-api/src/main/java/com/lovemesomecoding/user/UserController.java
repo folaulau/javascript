@@ -1,5 +1,7 @@
 package com.lovemesomecoding.user;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -60,6 +65,34 @@ public class UserController {
         log.info("{}", savedUser.toString());
 
         return new ResponseEntity<>(savedUser, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Upload Document")
+    @PostMapping(value = "/document", consumes = "multipart/form-data")
+    public ResponseEntity<UploadFileResultDTO> uploadFile(@RequestHeader(name = "token") String token, @ApiParam(name = "file", required = true, value = "file") @RequestPart MultipartFile file) {
+        log.info("uploadFiles(token={})", token);
+
+        log.info("fileName={}", file.getOriginalFilename());
+        log.info("fileSize={}", file.getSize());
+        log.info("fileType={}", file.getContentType());
+
+        return new ResponseEntity<>(new UploadFileResultDTO(true), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Upload Documents")
+    @PostMapping(value = "/documents", consumes = "multipart/form-data")
+    public ResponseEntity<UploadFileResultDTO> uploadFiles(@RequestHeader(name = "token") String token,
+            @ApiParam(name = "files", required = true, value = "files") @RequestPart List<MultipartFile> files) {
+        log.info("uploadFiles(token={})", token);
+
+        for (MultipartFile file : files) {
+            log.info("fileName={}", file.getOriginalFilename());
+            log.info("fileSize={}", file.getSize());
+            log.info("fileType={}", file.getContentType());
+            System.out.println();
+        }
+
+        return new ResponseEntity<>(new UploadFileResultDTO(true), HttpStatus.OK);
     }
 
 }
