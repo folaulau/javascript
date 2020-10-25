@@ -161,6 +161,17 @@ window.onload = function() {
     console.log('john'/2); // NaN;
     console.log(NaN/2); // NaN
     console.log(NaN == NaN); // false
+
+    /*
+    * Nullish coalescing operator '??'
+    */
+
+    let collegeName;
+
+    console.log("collegeName: "+ (collegeName ?? "no collegeName"));
+
+    collegeName = "BYU";
+    console.log("collegeName: ", collegeName ?? "no collegeName");
 };
 </script>
 </body>
