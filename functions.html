@@ -17,12 +17,37 @@
 <h2 class="text-center">Javascript Functions Tutorial</h2>
 <div class="row">
     <div class="col-3">
+        Alert
+    </div>
+    <div class="col-4">
+        <button onclick="showAlert()" type="button" class="btn btn-outline-primary btn-block">Click Alert</button>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-3">
+        Prompt
+    </div>
+    <div class="col-4">
+        <button onclick="showPrompt()" type="button" class="btn btn-outline-primary btn-block">Click Prompt</button>
+    </div>
+    <div class="col-5" id="promptResponse">
+        
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-3">
+        Confirmation
+    </div>
+    <div class="col-4">
+        <button onclick="showConfirmation()" type="button" class="btn btn-outline-primary btn-block">Click Confirmation</button>
+    </div>
+    <div class="col-5" id="confirmationResponse">
         
     </div>
 </div>
 <script>
-window.onload = function() {
-
     /*
     * Function Call
     */
@@ -139,8 +164,30 @@ window.onload = function() {
 
     updateData();//updating name in database.
 
+    /*
+    * Interaction functions
+    * The mini-window with the message is called a modal window. 
+    * The word “modal” means that the visitor can’t interact with the rest of the page, press other buttons, etc, 
+    * until they have dealt with the window. In this case – until they press “OK”.
+    */
 
-};
+    /*
+    * Alert function - It shows a message and waits for the user to press “OK”.
+    */
+    function showAlert(){
+        alert("This is an alert");
+    }
+
+    function showPrompt(){
+        // message, defaultValue or defaultAnswer
+        let name = prompt("What's your name?","John Doe");
+        document.getElementById("promptResponse").innerHTML = "Welcome "+name;
+    }
+
+    function showConfirmation(){
+        let confirmed = confirm("Delete this post?");
+        document.getElementById("confirmationResponse").innerHTML = "You said "+(confirmed ? "yes" : "no")+" to deleting the post.";
+    }
 </script>
 </body>
 </html> 
