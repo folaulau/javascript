@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Javascript Tutorial</title>
+        <!-- jQuery -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <!-- Bootstrap -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    </head>
+<body class="container">
+
+<h2 class="text-center">Javascript Object Tutorial</h2>
+<div class="row">
+    <div class="col-3">
+        User
+    </div>
+    <div class="col-4" id="userInfo">
+
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-3">
+        New User Info
+    </div>
+    <div class="col-4" id="newUserInfo">
+
+    </div>
+</div>
+<script>
+    /*
+    * 
+    */
+    let user = {
+        "name": "Folau",
+        "age": 33
+    }
+    console.log("user: ", user);
+    console.log("user name: ", user.name);
+    console.log("user name: ", user['name']);
+    document.getElementById("userInfo").innerHTML = JSON.stringify(user);
+
+    /*
+    * To remove a property, we can use delete operator.
+    */
+    delete user.age;
+
+    console.log("user: ", user);
+    document.getElementById("userInfo").innerHTML = JSON.stringify(user);
+
+    function createUser(name, age) {
+        return {
+            name,
+            age,
+        };
+    }
+
+    let folau = createUser("Folau", 20);
+    console.log("folau: ", folau);
+    document.getElementById("newUserInfo").innerHTML = JSON.stringify(folau);
+
+    /*
+    * Check for property existence with in
+    */
+    let doesUserHaveName = ("name" in user);
+    console.log("name in user: ", doesUserHaveName);//true
+
+    let doesUserHaveAddress = ("address" in user);
+    console.log("address in user: ", doesUserHaveAddress);//false
+    /*
+    * Loop through properties of an object with in
+    */
+
+    for(let field in user){
+        console.log("field: ", field, ", value: ", user[field]);
+    }
+
+
+    /*
+    * Objects are Mutable
+    * Objects are mutable: They are addressed by reference, not by value.
+    * If person is an object, the following statement will not create a copy of person
+    */
+    let member = user;
+
+    member.name = "Lisa";
+    console.log("user: ", user);
+    console.log("member: ", member);
+
+    let person = {
+        name:"Folau",
+        dob: new Date(1986, 12, 03),
+        getAge: () => {
+            let today = new Date();
+            return today.getFullYear() - this.dob.getFullYear();
+        }
+    }
+    console.log("Folau age: ", person.getAge());
+</script>
+</body>
+</html> 
