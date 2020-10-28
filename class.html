@@ -30,6 +30,9 @@
         //private fields are declared with #
         #name;
         #dob;
+        #type;
+        static USER_TYPE = "USER_TYPE";
+        static ADMIN_TYPE = "ADMIN_TYPE";
         /*
         * The constructor method is a special method:
         * It has to have the exact name "constructor"
@@ -37,18 +40,72 @@
         * It is used to initialize object properties
         * It if you do not define a constructor method, JavaScript will add an empty constructor method.
         */
-        constructor(name, dob) {
+        constructor(name, dob, type) {
             this.name = name;
             this.dob = dob;
+
+            if(type==undefined){
+                this.type = User.USER_TYPE;
+            }else{
+                this.type = type;
+            }
         }
 
         getAge(date){
             return date.getFullYear() - this.dob.getFullYear();
         }
+
+        getDob(){
+            return this.dob;
+        }
+
+        static getAgeDifference(user1, user2){
+            return user1.getDob().getFullYear() - user2.getDob().getFullYear();
+        }
+
     }
 
     let folau = new User("Folau",new Date(1986, 12, 03));
+    console.log("Folau: ", folau);
     console.log("Folau age: ", folau.getAge(new Date()));
+
+    let lisa = new User("Lisa",new Date(1987, 04, 12));
+    console.log("Lisa: ", lisa);
+
+    let ageDifference =  User.getAgeDifference(folau, lisa);
+    console.log("ageDifference: ", ageDifference);
+
+
+    class Member extends User{
+        id;
+        constructor(id, name, dob, type) {
+            super(name, dob, type);
+            this.id = id;
+        }
+
+        getId(){
+            return this.id;
+        }
+
+        getNext5yearAge(){
+            let dob = super.getDob();
+            let today = new Date();
+            return (today.getFullYear() - dob.getFullYear()) + 5;;
+        }
+    }
+
+    let laulau = new Member(100, "Laulau",new Date(1986, 12, 03));
+    console.log("laulau: ", laulau);
+    /*
+        dob: Sat Jan 03 1987 00:00:00 GMT-0700 (Mountain Standard Time) {}
+        id: 100
+        name: "Laulau"
+        type: "USER_TYPE"
+    */
+    laulau.id = 250;
+    console.log("laulau id: ", laulau.getId());// 250
+    console.log("laulau age: ", laulau.getAge(new Date()));// 33
+    console.log("laulau age in 5 years: ", laulau.getNext5yearAge());// 38
 </script>
 </body>
 </html> 
