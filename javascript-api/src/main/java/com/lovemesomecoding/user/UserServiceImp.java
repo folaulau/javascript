@@ -1,5 +1,6 @@
 package com.lovemesomecoding.user;
 
+import java.time.LocalDateTime;
 import java.util.Random;
 
 import org.springframework.stereotype.Service;
@@ -20,7 +21,8 @@ public class UserServiceImp implements UserService {
         }
 
         user.setId(id);
-
+        user.setCreatedAt(LocalDateTime.now());
+        user.setUpdatedAt(LocalDateTime.now());
         return user;
     }
 
@@ -31,6 +33,8 @@ public class UserServiceImp implements UserService {
         user.setFirstName("Folau");
         user.setLastName("Kaveinga");
         user.setEmail("folaukaveinga@gmail.com");
+        user.setCreatedAt(LocalDateTime.now());
+        user.setUpdatedAt(LocalDateTime.now());
         return user;
 
     }
@@ -40,7 +44,8 @@ public class UserServiceImp implements UserService {
         user.setFirstName("Folau");
         user.setLastName("The programmer");
         user.setEmail("folaukaveinga@gmail.com");
-
+        user.setCreatedAt(LocalDateTime.now());
+        user.setUpdatedAt(LocalDateTime.now());
         if (true) {
             throw new IllegalAccessError("Cannot access this endpoint");
         }

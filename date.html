@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Javascript Tutorial</title>
+        <!-- jQuery -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <!-- Bootstrap -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    </head>
+<body class="container">
+
+<h2 class="text-center">Javascript Date Tutorial</h2>
+
+<div class="row">
+    <div class="col-2">
+
+    </div>
+    <div class="col-10">
+        <h4>Make sure to run the spring boot javascript project</h4>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-1">
+
+    </div>
+    <div class="col-6">
+        Default DateTime
+    </div>
+    <div class="col-5" id="defaultDateTime">
+        
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-1">
+
+    </div>
+    <div class="col-6">
+        LocaleDateString
+    </div>
+    <div class="col-5" id="localeDateString">
+        
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-1">
+
+    </div>
+    <div class="col-6">
+        LocaleTimeString
+    </div>
+    <div class="col-5" id="localeTimeString">
+        
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-1">
+
+    </div>
+    <div class="col-6">
+        LocaleDateString and LocaleTimeString 
+    </div>
+    <div class="col-5" id="localeDateTimeString">
+        
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-1">
+
+    </div>
+    <div class="col-6">
+        UTC LocaleDateString and LocaleTimeString 
+    </div>
+    <div class="col-5" id="UTCLocaleDateTimeString">
+        
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-1">
+
+    </div>
+    <div class="col-6">
+        Transform UTC Server DateTime to LocalDateTime
+        <br>
+        <button onclick="getUser()" type="button" class="btn btn-outline-primary">Get User</button>
+    </div>
+    <div class="col-5" id="getUserContent">
+        
+    </div>
+</div>
+<br>
+
+<script>
+
+    async function getUser(){
+        console.log("getUser");
+        let headers = {
+            "Content-Type": "application/json",
+            "token":"lovemesomecoding-token"
+        };
+
+        let options = {};
+        options.method = "GET";
+        options.headers = headers;
+
+        let id = 1;
+
+        let url = "http://localhost:8888/users/"+id;
+
+        let response = await fetch(url, options);
+        
+        if (response.ok) { // if HTTP-status is 200-299
+            let data = await response.json();
+
+            let content = "";
+            content += "id: "+data.id+"<br>";
+            content += "firstName: "+data.firstName+"<br>";
+            content += "lastName: "+data.lastName+"<br>";
+            content += "email: "+data.email+"<br>";
+            content += "<b>createdAt UTC:</b> "+data.createdAt+"<br>";
+            content += "createdAt: "+new Date(data.createdAt).toLocaleDateString()+" "+new Date(data.createdAt).toLocaleTimeString()+"<br>";
+            content += "<b>updatedAt UTC:</b> "+data.updatedAt+"<br>";
+            content += "updatedAt: "+new Date(data.updatedAt).toLocaleDateString()+" "+new Date(data.updatedAt).toLocaleTimeString()+"<br>";
+
+            document.getElementById("getUserContent").innerHTML = content;
+            document.getElementById("errorMsg").innerHTML = "";
+        } else {
+            let error = await response.json();
+            console.log(error);
+            document.getElementById("errorMsg").innerHTML = error.message;
+        }
+        
+    }
+
+    let today = new Date();
+    console.log("today: ", today);
+    document.getElementById("defaultDateTime").innerHTML = today;
+
+    console.log("localeDateString: ", today.toLocaleDateString());
+    document.getElementById("localeDateString").innerHTML = today.toLocaleDateString();
+
+    console.log("localeTimeString: ", today.toLocaleTimeString());
+    document.getElementById("localeTimeString").innerHTML = today.toLocaleTimeString();
+
+    //localeDateTimeString
+    console.log("localeDateTimeString: ", today.toLocaleDateString()+" "+today.toLocaleTimeString());
+    document.getElementById("localeDateTimeString").innerHTML = today.toLocaleDateString()+" "+today.toLocaleTimeString();
+
+    console.log("UTCLocaleDateTimeString: ", today.toUTCString());
+    document.getElementById("UTCLocaleDateTimeString").innerHTML = today.toUTCString();
+
+    
+
+    // Date(year, month, day, hours, minutes, seconds, milliseconds)
+    let _1999 = new Date(1999, 10, 2);
+    console.log("_1999: ", _1999.toLocaleDateString()+" "+_1999.toLocaleTimeString());
+
+    /*
+    * Create a UTC date 
+    */
+    let utcDate = new Date("2015-03-25T00:00:00Z");
+    let utcToLocalDate = utcDate.toLocaleString();
+    console.log("utcDate: ", utcDate);
+    console.log("utcToLocalDate: ", utcToLocalDate);
+</script>
+</body>
+</html> 
