@@ -47,6 +47,18 @@
         
     </div>
 </div>
+<br>
+<br>
+<br>
+<h4 class="text-center">Callback function synchronous</h4>
+<div class="row">
+    <div class="col-3">
+        <button onclick="checkin()" type="button" class="btn btn-outline-primary">Check In Synchronous</button>
+    </div>
+    <div class="col-6">
+        <div class="text-center" id="welcomeNote"></div>
+    </div>
+</div>
 <script>
     /*
     * Function Call
@@ -189,5 +201,112 @@
         document.getElementById("confirmationResponse").innerHTML = "You said "+(confirmed ? "yes" : "no")+" to deleting the post.";
     }
 </script>
+
+<!-- Callback function synchronous -->
+<script>
+    function checkin(){
+        console.log("checkin...");
+        checkUser(greeting);
+        console.log("checkin done!");
+    }
+    function greeting(name) {
+        console.log("greeting...");
+        alert('Hey ' + name);
+        document.getElementById("welcomeNote").innerHTML = "Welcome "+name+"!";
+        console.log("greeting done!");
+    }
+    
+    function checkUser(callback) {
+        console.log("checkUser...");
+        var name = prompt('What is your name?');
+        callback(name);
+        console.log("checkUser done!");
+    }
+    </script>
+    
+    <h4 class="text-center">Callback function asynchronous</h4>
+    <div class="row">
+        <div class="col-3">
+            <button onclick="checkApi()" type="button" class="btn btn-outline-primary">Check In Asynchronous</button>
+        </div>
+        <div class="col-6">
+            <div class="text-center" id="apiNote"></div>
+        </div>
+    </div>
+    
+    <!-- Callback function asynchronous -->
+    <script>
+    function checkApi(){
+        console.log("checkApi...");
+        getRandomNumber(showApiResult);
+        console.log("checkApi done!");
+    }
+    
+    function getRandomNumber(showApiResult){
+        let apiEndpoint = "https://www.random.org/integers/?num=1&min=1&max=6&col=1&base=10&format=plain&rnd=new";
+        $.get(apiEndpoint, function(data, status){
+            console.log(status);
+            console.log(data);
+            showApiResult(data);
+        });
+    }
+    
+    function showApiResult(randomNumber){
+        document.getElementById("apiNote").innerHTML = "Here is your random number "+randomNumber+"!";
+    }
+    </script>
+    
+    
+    <h4 class="text-center">Callback function with jQuery</h4>
+    <div class="row">
+        <div class="col-3">
+            <button onclick="checkjQuery()" type="button" class="btn btn-outline-primary">Check In jQuery</button>
+        </div>
+        <div class="col-6">
+            <div class="text-center" id="jqueryNote"></div>
+        </div>
+    </div>
+    <!-- Callback function asynchronous with jquery -->
+    <script>
+    $(document).ready(function(){
+        /**
+        Note: use this to reference variables and functions
+        */
+        this.name = "Folau";
+    
+        this.checkjQuery = function(){
+            console.log("checkjQuery...");
+            this.getJQueryRandomNumber(this.showJQueryApiResult);
+            console.log("checkjQuery done!");
+        }
+    
+        this.getJQueryRandomNumber = function(showJQueryApiResult){
+            console.log("getJQueryRandomNumber...");
+            // reference this to outside function.
+            var self = this;
+            let apiEndpoint = "https://www.random.org/integers/?num=1&min=1&max=6&col=1&base=10&format=plain&rnd=new";
+            $.get(apiEndpoint, function(data, status){
+                console.log(status);
+                console.log(data);
+                self.showJQueryApiResult(data);
+            });
+            console.log("getJQueryRandomNumber done!");
+        }
+    
+        this.showJQueryApiResult = function(randomNumber){
+            console.log("showJQueryApiResult...");
+            document.getElementById("jqueryNote").innerHTML = "Here is your random number "+randomNumber+"!";
+            console.log("showJQueryApiResult done!");
+        }
+    
+        // this function does not work as it does not use this
+        function showJQueryApiResult(randomNumber){
+            console.log("showJQueryApiResult...");
+            document.getElementById("jqueryNote").innerHTML = "Here is your random number "+randomNumber+"!";
+            console.log("showJQueryApiResult done!");
+        }
+    
+    });
+    </script>
 </body>
 </html> 
