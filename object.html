@@ -94,13 +94,20 @@
 
     let person = {
         name:"Folau",
-        dob: new Date(1986, 12, 03),
-        getAge: () => {
-            let today = new Date();
-            return today.getFullYear() - this.dob.getFullYear();
+        age: 33,
+        score: {
+            sc: 100
         }
     }
-    console.log("Folau age: ", person.getAge());
+    console.log("person ", person);
+
+    person.score.sc = 25;
+    /*
+    * Clone objects
+    */
+    let lau = Object.assign({}, person);
+    console.log("lau", lau);
+
 </script>
 </body>
 </html> 
