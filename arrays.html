@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Javascript Tutorial</title>
+        <!-- jQuery -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <!-- Bootstrap -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    </head>
+<body class="container">
+
+<h2 class="text-center">Javascript Arrays Tutorial</h2>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-10">
+        <h4>Open the web dev console to see results</h4>
+    </div>
+</div>
+<script>
+window.onload = function() {
+
+    /*
+    * Array declaration - use new Array
+    */
+    let scores = new Array(12,34,56,100);
+
+    console.log("scores");
+    console.log(scores);
+
+    /*
+    * Array declaration - use []
+    */  
+    let names = ['John','Peter','James'];
+
+    console.log("names");
+    console.log(names);
+
+    /*
+    * Access elements on Arrays
+    */
+    let highScore = scores[3];
+    console.log("highScore: "+highScore);
+    
+    scores[3] = 505; 
+    console.log("highScore: "+scores[3]);//505
+
+    /*
+    * Array size
+    */
+    console.log("scores.length: "+scores.length);//4
+
+    console.log("Array push");
+    names.push('Juan');
+    console.log("names");
+    console.log(names);
+
+    /*
+    * Objects vs Arrays.
+    */
+    let arr = ["Peter",25];
+    console.log("arr[0]: "+arr[0]);//Peter
+    console.log("arr[1]: "+arr[1]);//25
+
+    let obj = {"name":"Peter","age":"25"};
+    console.log("obj.name: "+obj.name);//Peter
+
+    /*
+    * Remove elements from the end of the array, use the pop method.
+    */
+    console.log("Array pop");
+    names.pop();
+    console.log("names");
+    console.log(names);
+
+    /*
+    * Remove elements from the beginning of the array, use the shift method.
+    */
+    console.log("Array shift");
+    names.shift();
+    console.log("names");
+    console.log(names);
+
+
+    /*
+    * The splice() method can be used to add new items to an array:
+    *
+    * The first parameter (2) defines the position where new elements should be added (spliced in).
+    * The second parameter (0) defines how many elements should be removed.
+    * The rest of the parameters ("Lemon" , "Kiwi") define the new elements to be added.
+    * The splice() method returns an array with the deleted items:
+    */
+    console.log("Array splice");
+    names.splice(2, 0, "Lemon", "Kiwi");
+    console.log("names");
+    console.log(names);
+
+
+    /*
+    * Sorting, The sort() method sorts an array alphabetically:
+    */
+    console.log("Array sort");
+    names.sort();
+    console.log("names");
+    console.log(names);
+
+    /*
+    * Array iteration
+    */
+    console.log("Array Iteration with foreach");
+    var numbers = [2, 4, 6, 8 , 10];
+
+    // value
+    numbers.forEach(function(number){
+        console.log("number: "+number);
+    });
+    // value, index
+    numbers.forEach(function(number,index){
+        console.log("number: "+number+", index: "+index);
+    });
+    // value, index, array
+    numbers.forEach(function(number,index, arr){
+        console.log("number: "+number+", index: "+index+", original array: "+arr);
+    });
+
+    console.log("Array Iteration with for loop");
+    for(let i=0;i<numbers.length;i++){
+        let number = numbers[i];
+        console.log("index: "+i+", number: "+number);
+    }
+
+    /*
+    * Array map
+    * The map() method creates a new array by performing a function on each array element.
+    * The map() method does not execute the function for array elements without values.
+    * The map() method does not change the original array.
+    */
+    console.log("Array map");
+    var numbers2 = numbers.map(function(number){
+        console.log("number: "+number);
+        return number * 2;
+    });
+    console.log("numbers: "+numbers);
+    console.log("numbers2 * 2");
+    console.log(numbers2);
+
+    var numbers3 = numbers.map(function(number, index){
+        console.log("number: "+number+", index: "+index);
+        return number * 3;
+    });
+    console.log("numbers: "+numbers);
+    console.log("numbers3 * 3");
+    console.log(numbers3);
+
+    var numbers4 = numbers.map(function(number, index, arr){
+        console.log("number: "+number+", index: "+index+", original array: "+arr);
+        return number * 4;
+    });
+    console.log("numbers: "+numbers);
+    console.log("numbers4 * 4");
+    console.log(numbers4);
+
+    /*
+    * Array filter - The filter() method creates a new array with array elements that passes a test.
+    */
+    console.log("Array filter");
+    var over8 = numbers.filter(function(number, index){
+        console.log("number: "+number+", index: "+index);
+        return number >= 8;
+    });
+    console.log("numbers: "+numbers);
+    console.log("numbers greater than or equal 8");
+    console.log(over8);
+
+    var over4 = numbers.filter(function(number, index, arr){
+        console.log("number: "+number+", index: "+index+", original array: "+arr);
+        return number >= 4;
+    });
+    console.log("numbers: "+numbers);
+    console.log("numbers greater than or equal 4");
+    console.log(over4);
+
+    /*
+    * Array reduce
+    * The reduce() method runs a function on each array element to produce (reduce it to) a single value.
+    * The reduce() method works from left-to-right in the array. See also reduceRight().
+    * The reduce() method does not reduce the original array.
+    */
+    console.log("Array reduce");
+    var sum = numbers.reduce(function(total, number, index, arr){
+        console.log("total: "+total+", number: "+number+", index: "+index+", arr: "+arr);
+        return total + number;
+    });
+
+    console.log("numbers: "+numbers);
+    console.log("sum of numbers: "+sum);
+
+    /*
+    * Array every - The every() method check if all array values pass a test.
+    */
+    console.log("Array every");
+    var allOver2 = numbers.every(function(number,index){
+        console.log("number: "+number+", index: "+index);
+        return number >=2;
+    });
+    console.log("allOver2: "+allOver2);
+
+    var allOver4 = numbers.every(function(number,index,arr){
+        console.log("number: "+number+", index: "+index+", original array: "+arr);
+        return number >=4;
+    });
+    console.log("allOver4: "+allOver4);
+
+    /*
+    * Array some - The some() method check if some array values pass a test.
+    */
+    console.log("Array some");
+    var someOver2 = numbers.some(function(number,index){
+        console.log("number: "+number+", index: "+index);
+        return number >=2;
+    });
+    console.log("someOver2: "+someOver2);
+    var someOver4 = numbers.some(function(number,index,arr){
+        console.log("number: "+number+", index: "+index+", original array: "+arr);
+        return number >=4;
+    });
+    console.log("someOver4: "+someOver4);
+
+    /*
+    * Array indexOf - The indexOf() method searches an array for an element value and returns its position.
+    * Note: The first item has position 0, the second item has position 1, and so on.
+    */
+    console.log("Array indexOf");
+    var peterIndex = names.indexOf("Peter");
+    console.log("peterIndex: "+peterIndex);
+
+    /*
+    * Array find - The find() method returns the value of the first array element that passes a test function.
+    */
+    console.log("Array find");
+    var first3 = numbers.find(function(number, index, arr){
+        return number > 3;
+    });
+    console.log("first3: "+first3);
+};
+</script>
+</body>
+</html> 
