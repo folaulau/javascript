@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Javascript Tutorial</title>
+        <!-- jQuery -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <!-- Bootstrap -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    </head>
+<body class="container">
+
+<h2 class="text-center">Javascript Error Handling Tutorial</h2>
+
+<div class="row">
+    <div class="col-2">
+
+    </div>
+    <div class="col-10">
+        <h4>Make sure to run the spring boot javascript project</h4>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-1">
+
+    </div>
+    <div class="col-6">
+    </div>
+    <div class="col-5" id="">
+        
+    </div>
+</div>
+
+<script>
+
+    try {
+        let name = getName();
+    } catch (error) {
+        /*
+        * error object that contains at least the name of the error and message that explains the error in detail.
+        * Different web browsers may add more property to the error object. 
+        * For example, Firefox adds filename, lineNumber, and stack properties to the error object.
+        */
+        console.log(error);//ReferenceError: getName is not defined
+        console.log(error.name + ":" + error.message);//ReferenceError:getName is not defined
+    }finally {
+        console.log("finally");
+    }
+
+    /*
+    * try..catch only works synchronously. It does not work asynchronously.
+    */
+
+    try {
+        setTimeout(function() {
+            getName(); // script will die here
+        }, 1000);
+    } catch (error) {
+        console.log("Error not caught here.");
+    }
+
+    setTimeout(function() {
+        try {
+            getName();
+        } catch (error) {
+            console.log(error);//ReferenceError: getName is not defined
+            console.log(error.name + ":" + error.message);//ReferenceError:getName is not defined
+        }
+    }, 1000);
+
+    /*
+    * Throw an error
+    */
+
+    function throwError(){
+        throw new Error("Something went wrong due to Error!");
+    }
+
+    function throwReferenceError(){
+        throw new ReferenceError("Something went wrong due to ReferenceError!");
+    }
+
+    try {
+        throwError();
+    } catch (error) {
+        console.log(error.name + ":" + error.message);
+    }
+    
+    try {
+        throwReferenceError();
+    } catch (error) {
+        console.log(error.name + ":" + error.message);
+    }
+    
+    class ValidationError extends Error {
+        constructor(message) {
+            super(message); // (1)
+            this.name = "ValidationError"; // (2)
+        }
+    }
+
+    function testValidationError() {
+        throw new ValidationError("Whoops!");
+    }
+
+    try {
+        testValidationError();
+    } catch(error) {
+        console.log(error.name + ":" + error.message);
+        console.log("error stack");
+        console.log(error.stack);
+    }
+
+</script>
+</body>
+</html> 
