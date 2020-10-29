@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Javascript Tutorial</title>
+        <!-- jQuery -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <!-- Bootstrap -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    </head>
+<body class="container">
+
+<h2 class="text-center">Javascript String Tutorial</h2>
+<div class="row">
+    <div class="col-3">
+    </div>
+    <div id="userDesc" class="col-9">
+    </div>
+</div>
+<script>
+"use strict";
+window.onload = function() {
+  
+    /**
+    To escape special characters, you use the backslash \ character.
+    */
+    let str = 'I\'m Folau Kaveinga.';
+    document.getElementById("userDesc").innerHTML = str;
+    let str1 = "I\"m Folau Kaveinga.";
+    let str2 = 'I\'m slash \\';
+
+    document.getElementById("userDesc").innerHTML += str1;
+    document.getElementById("userDesc").innerHTML += str2;
+
+    let strLength = str.length;
+    console.log("strLength: "+strLength);
+
+    /**
+    To access the characters in a string, you use the array-like [] notation with the zero-based index.
+    */
+    let name = "Folau Kaveinga";
+    let letter = name[4];
+    console.log("letter: "+letter);
+
+    let active = false;
+    let activeStr = active.toString(); 
+    console.log("activeStr: "+activeStr);// "false"
+
+    let five = 5;
+    let fiveStr = new String(five);
+    console.log("fiveStr: "+fiveStr);// 5
+
+    /*
+    String concatenation
+    */
+    let firstName = 'Folau';
+    let fullName = firstName.concat(' ','Kaveinga', ' ', 'Jr');
+    console.log(fullName); // "Folau Kaveinga Jr"
+
+     firstName = 'Folau';
+     fullName = firstName + ' '+ 'Kaveinga'+' '+'Jr';
+    console.log(fullName); // "Folau Kaveinga Jr"
+
+    /*
+    Substring
+    
+    */
+    let phrase = "I love coding";
+
+    console.log(phrase.substr(2, 4)); // "love"
+    console.log(phrase.substr(7, 6)); // "coding"
+    console.log(phrase.substring(7, 13)); // "coding"
+
+    /*
+    indexOf - To locate a substring in a string, you use the indexOf() method:
+    */
+
+    phrase = "I love coding so much";
+    console.log(phrase.indexOf("o")); // 3
+    console.log(phrase.indexOf('o', 3)); // 3
+    console.log(phrase.lastIndexOf('o')); // 15
+    console.log(phrase.lastIndexOf('are')); // -1
+
+    console.log( "Folau".includes("lau") ); // true
+    console.log( "Folau".includes("ol", 4 )); // false, from position 4 there is no "ol"
+
+    console.log( "Folau".startsWith("Fol") ); // true, "Folau" starts with "Fol"
+    console.log( "Folau".endsWith("lau") ); // true, "Folau" ends with "lau"
+
+    /*
+    Remove leading and trailing whitespace
+    */
+
+    name = ' Folau ';
+    let strippedName= name.trim();
+    let leadingStrippedName= name.trimStart();
+    let trailingStrippedName= name.trimEnd();
+    console.log(strippedName); // "Folau"
+    console.log(leadingStrippedName); // "Folau "
+    console.log(trailingStrippedName); // " Folau"
+
+    /*
+    Replace substring
+    */
+
+    phrase = "I love coding so much";
+    // replace "the" with "a"
+    let newPhrase = phrase.replace(/so/g, "very");
+    console.log(newPhrase); // "I love coding very much"
+    console.log(phrase); // "I love coding so much"
+
+};
+</script>
+</body>
+</html> 
