@@ -65,73 +65,112 @@
     </div>
 </div>
 <br>
+<div class="row">
+    <div class="col-1">
+
+    </div>
+    <div class="col-4">
+        Get Average Number
+        <br>
+        <button onclick="getAverageNumber()" type="button" class="btn btn-outline-primary">Get It</button>
+    </div>
+    <div class="col-7" id="averageNum">
+        
+    </div>
+</div>
+<br>
 
 <script>
     
-let successAction = new Promise((resolve, reject) => {
-    console.log('Initial success action');
+    let successAction = new Promise((resolve, reject) => {
+        console.log('Initial success action');
 
-    document.getElementById("promisePending").innerHTML = "Starting...";
-    // do async action here.
+        document.getElementById("promisePending").innerHTML = "Starting...";
+        // do async action here.
 
-    setTimeout( function() {
-        let apiResponse = {};
-        apiResponse.id = 1;
-        apiResponse.name = "Folau";
+        setTimeout( function() {
+            let apiResponse = {};
+            apiResponse.id = 1;
+            apiResponse.name = "Folau";
 
-        // resolve with a reponse
-        resolve(apiResponse);
-        document.getElementById("promiseFullFilled").innerHTML = "fullfilled";
+            // resolve with a reponse
+            resolve(apiResponse);
+            document.getElementById("promiseFullFilled").innerHTML = "fullfilled";
 
-    }, 1000);
+        }, 1000);
 
-});
+    });
 
-successAction.then((reponse) => {
-    console.log(reponse);
-    console.log('Do this');
-})
-.catch((error) => {
-     // This is skiped because resolve is called above.
-    console.error('Error');
-    console.log(error);
-}).finally(() => {
-    console.log('finally!');
-});
+    successAction.then((reponse) => {
+        console.log(reponse);
+        console.log('Do this');
+    })
+    .catch((error) => {
+        // This is skiped because resolve is called above.
+        console.error('Error');
+        console.log(error);
+    }).finally(() => {
+        console.log('finally!');
+    });
 
-let failedAction = new Promise((resolve, reject) => {
-    console.log('Initial failed action');
+    let failedAction = new Promise((resolve, reject) => {
+        console.log('Initial failed action');
 
-    document.getElementById("promisePending").innerHTML = "Starting...";
-    // do async action here.
+        document.getElementById("promisePending").innerHTML = "Starting...";
+        // do async action here.
 
-    setTimeout( function() {
-        let apiResponse = {};
-        apiResponse.id = 1;
-        apiResponse.name = "Folau";
+        setTimeout( function() {
+            let apiResponse = {};
+            apiResponse.id = 1;
+            apiResponse.name = "Folau";
 
-        // reject with a reponse
-        reject(apiResponse);
-        document.getElementById("promiseRejected").innerHTML = "rejected";
+            // reject with a reponse
+            reject(apiResponse);
+            document.getElementById("promiseRejected").innerHTML = "rejected";
 
-    }, 1000);
+        }, 1000);
 
-});
+    });
 
-failedAction.then((reponse) => {
-    // This is skiped because reject is called above.
-    console.log(reponse);
-    console.log('Do this');
-})
-.catch((error) => {
-    console.error('Error');
-    console.log(error);
-}).finally(() => {
-    console.log('finally!');
-});
+    failedAction.then((reponse) => {
+        // This is skiped because reject is called above.
+        console.log(reponse);
+        console.log('Do this');
+    })
+    .catch((error) => {
+        console.error('Error');
+        console.log(error);
+    }).finally(() => {
+        console.log('finally!');
+    });
 
-// non blocking. This goes before the promise as the promise waits 3 seconds.
-console.log("end of file!");
+
+    /*
+    * Async and await
+    */
+    async function calculateAverage(num1, num2, num3){
+
+        // This could be a REST API call
+        let someNumber = await new Promise(resolve => {
+            setTimeout(() => {
+                resolve(3);
+            }, 2000);
+        });
+        console.log("num1: "+num1 + ", num2: "+ num2 +", num3: "+ num3 + ", someNumber: "+someNumber);
+        return (num1 + num2 + num3 + someNumber) / 4;
+    }
+
+    function getAverageNumber(){
+        calculateAverage(2, 3, 4).then(average => {
+            console.log("average");
+            console.log(average);
+            document.getElementById("averageNum").innerHTML = average;
+        });
+    }
+    
+
+    // non blocking. This goes before the promise as the promise waits 3 seconds.
+    console.log("end of file!");
 </script>
 
 <script>
