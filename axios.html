@@ -114,7 +114,7 @@
             "token": "foobar"
         }
     });
-    async function signup(){
+    function signup(){
         console.log("sign up");
         let headers = {
             "x-api-key":"lovemesomecoding"
@@ -132,12 +132,10 @@
 
         let url = "/users/signup";
 
-        let response = await axiosInstance(url, options);
+        let response = axiosInstance(url, options);
 
-        console.log(response);
-
-        if (response.status >= 200) { 
-            let data = await response.data;
+        response.then(response => {
+            let data = response.data;
 
             let content = "";
             content += "id: "+data.id+"<br>";
@@ -147,15 +145,18 @@
 
             document.getElementById("signUpContent").innerHTML = content;
             document.getElementById("errorMsg").innerHTML = "";
-        } else {
-            let error = await response.json();
-            console.log(error);
-            document.getElementById("errorMsg").innerHTML = error.message;
-        }
+        }).catch(error => {
+            console.log("error");
+            let errorResponse = error.response.data;
+
+            console.log(errorResponse);
+            document.getElementById("errorMsg").innerHTML = errorResponse.message;
+
+        });
         
     }
 
-    async function getUser(){
+    function getUser(){
         console.log("getUser");
         let headers = {
             "token":"lovemesomecoding-token"
@@ -169,10 +170,9 @@
 
         let url = "/users/"+id;
 
-        let response = await axiosInstance(url, options);
-        
-        if (response.status >= 200) { 
-            let data = await response.data;
+        let response =  axiosInstance(url, options);
+        response.then(response => {
+            let data =  response.data;
 
             let content = "";
             content += "id: "+data.id+"<br>";
@@ -182,15 +182,18 @@
 
             document.getElementById("getUserContent").innerHTML = content;
             document.getElementById("errorMsg").innerHTML = "";
-        } else {
-            let error = await response.data;
-            console.log(error);
-            document.getElementById("errorMsg").innerHTML = error.message;
-        }
+        }).catch(error => {
+            console.log("error");
+            let errorResponse = error.response.data;
+
+            console.log(errorResponse);
+            document.getElementById("errorMsg").innerHTML = errorResponse.message;
+
+        });
         
     }
 
-    async function updateUser(){
+    function updateUser(){
         console.log("update user");
         let headers = {
             "token":"lovemesomecoding"
@@ -209,11 +212,11 @@
 
         let url = "/users";
 
-        let response = await axiosInstance(url, options);
-        //console.log(response);
+        let response = axiosInstance(url, options);
 
-        if (response.status >= 200) { 
-            let data = await response.data;
+        response.then(response => {
+
+            let data = response.data;
 
             let content = "";
             content += "id: "+data.id+"<br>";
@@ -223,16 +226,20 @@
 
             document.getElementById("updateUserContent").innerHTML = content;
             document.getElementById("errorMsg").innerHTML = "";
-        } else {
-            let error = await response.data;
-            console.log(error);
-            document.getElementById("errorMsg").innerHTML = error.message;
-        }
+
+        }).catch(error => {
+            console.log("error");
+            let errorResponse = error.response.data;
+
+            console.log(errorResponse);
+            document.getElementById("errorMsg").innerHTML = errorResponse.message;
+
+        });
         
         
     }
 
-    async function uploadFile(){
+    function uploadFile(){
         console.log("uploadFile");
 
         const formData = new FormData();
@@ -262,24 +269,25 @@
 
         let url = "/users/document";
 
-        let response = await axiosInstance.post(url, formData, options);
+        let response =  axiosInstance.post(url, formData, options);
 
-        console.log(response);
-
-        if (response.status >= 200) { 
-            let data = await response.data;
+        response.then(response => {
+            let data = response.data;
 
             document.getElementById("uploadFileStatus").innerHTML = "uploaded: "+data.finishUpload;
             document.getElementById("errorMsg").innerHTML = "";
-        } else {
-            let error = await response.json();
-            console.log(error);
-            document.getElementById("errorMsg").innerHTML = error.message;
-        }
+        }).catch(error => {
+            console.log("error");
+            let errorResponse = error.response.data;
+
+            console.log(errorResponse);
+            document.getElementById("errorMsg").innerHTML = errorResponse.message;
+
+        });
         
     }
 
-    async function uploadFiles(){
+    function uploadFiles(){
         console.log("uploadFiles");
 
         const formData = new FormData();
@@ -313,19 +321,21 @@
 
         let url = "/users/documents";
 
-        let response = await axiosInstance.post(url, formData, options);
+        let response = axiosInstance.post(url, formData, options);
 
-        if (response.status >= 200) { 
-            let data = await response.data;
+        response.then(response => {
+            let data = response.data;
 
             document.getElementById("uploadFileStatus").innerHTML = "uploaded: "+data.finishUpload;
             document.getElementById("errorMsg").innerHTML = "";
+        }).catch(error => {
+            console.log("error");
+            let errorResponse = error.response.data;
 
-        } else {
-            let error = await response.json();
-            console.log(error);
-            document.getElementById("errorMsg").innerHTML = error.message;
-        }
+            console.log(errorResponse);
+            document.getElementById("errorMsg").innerHTML = errorResponse.message;
+
+        });
         
     }
 </script>

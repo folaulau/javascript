@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Javascript Tutorial</title>
+        <!-- jQuery -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <!-- Bootstrap -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+<body class="container">
+
+<h2 class="text-center">Javascript Promise Tutorial</h2>
+<div class="row">
+    <div class="col-4">
+        
+    </div>
+    <div class="col-8" id="errorMsg" style="color: red;">
+        
+    </div>
+</div>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-3">
+        Promise
+    </div>
+    <div class="col-2" id="promisePending">
+
+    </div>
+    <div class="col-2" id="promiseFullFilled">
+    </div>
+    <div class="col-2" id="promiseRejected">
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-1">
+
+    </div>
+    <div class="col-4">
+        Get user using GET
+        <br>
+        <button onclick="getUser()" type="button" class="btn btn-outline-primary">Get User</button>
+    </div>
+    <div class="col-7" id="getUserContent">
+        
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-1">
+
+    </div>
+    <div class="col-4">
+        Update user using PUT
+        <br>
+        <button onclick="updateUser()" type="button" class="btn btn-outline-primary">Update User</button>
+    </div>
+    <div class="col-7" id="updateUserContent">
+        
+    </div>
+</div>
+<br>
+
+<script>
+    
+let successAction = new Promise((resolve, reject) => {
+    console.log('Initial success action');
+
+    document.getElementById("promisePending").innerHTML = "Starting...";
+    // do async action here.
+
+    setTimeout( function() {
+        let apiResponse = {};
+        apiResponse.id = 1;
+        apiResponse.name = "Folau";
+
+        // resolve with a reponse
+        resolve(apiResponse);
+        document.getElementById("promiseFullFilled").innerHTML = "fullfilled";
+
+    }, 1000);
+
+});
+
+successAction.then((reponse) => {
+    console.log(reponse);
+    console.log('Do this');
+})
+.catch((error) => {
+     // This is skiped because resolve is called above.
+    console.error('Error');
+    console.log(error);
+}).finally(() => {
+    console.log('finally!');
+});
+
+let failedAction = new Promise((resolve, reject) => {
+    console.log('Initial failed action');
+
+    document.getElementById("promisePending").innerHTML = "Starting...";
+    // do async action here.
+
+    setTimeout( function() {
+        let apiResponse = {};
+        apiResponse.id = 1;
+        apiResponse.name = "Folau";
+
+        // reject with a reponse
+        reject(apiResponse);
+        document.getElementById("promiseRejected").innerHTML = "rejected";
+
+    }, 1000);
+
+});
+
+failedAction.then((reponse) => {
+    // This is skiped because reject is called above.
+    console.log(reponse);
+    console.log('Do this');
+})
+.catch((error) => {
+    console.error('Error');
+    console.log(error);
+}).finally(() => {
+    console.log('finally!');
+});
+
+// non blocking. This goes before the promise as the promise waits 3 seconds.
+console.log("end of file!");
+</script>
+
+<script>
+    const axiosInstance = axios.create({
+        baseURL: 'http://localhost:8888',
+        timeout: 1000,
+        headers: {
+            "Content-type": "application/json",
+            "token": "foobar"
+        }
+    });
+
+    function getUser(){
+        console.log("getUser");
+        let headers = {
+            "Content-Type": "application/json",
+            "token":"lovemesomecoding-token"
+        };
+
+        let options = {};
+        options.method = "GET";
+        options.headers = headers;
+
+        let id = 1;
+
+        let url = "http://localhost:8888/users/"+id;
+
+        let response = axiosInstance(url, options);
+
+        response.then(response => {
+        
+            let content = "";
+            content += "id: "+data.id+"<br>";
+            content += "firstName: "+data.firstName+"<br>";
+            content += "lastName: "+data.lastName+"<br>";
+            content += "email: "+data.email+"<br>";
+
+            document.getElementById("getUserContent").innerHTML = content;
+
+        }).catch(error => {
+            console.log("error");
+            let errorResponse = error.response.data;
+
+            console.log(errorResponse);
+            document.getElementById("errorMsg").innerHTML = errorResponse.message;
+
+        });
+    }
+
+    function updateUser(){
+        console.log("update user");
+        let headers = {
+            "Content-Type": "application/json",
+            "token":"lovemesomecoding"
+        };
+        let user = {
+            firstName: 'Folau',
+            lastName: 'Kaveinga',
+            email: 'folaukaveinga@gmail.com',
+            id: 1
+        };
+
+        let options = {};
+        options.method = "PUT";
+        options.body = JSON.stringify(user);
+        options.headers = headers;
+
+        let url = "http://localhost:8888/users";
+
+        let response = axiosInstance(url, options);
+
+        response.then(response => {
+
+            let data = response.data;
+
+            let content = "";
+            content += "id: "+data.id+"<br>";
+            content += "firstName: "+data.firstName+"<br>";
+            content += "lastName: "+data.lastName+"<br>";
+            content += "email: "+data.email+"<br>";
+
+            document.getElementById("updateUserContent").innerHTML = content;
+            document.getElementById("errorMsg").innerHTML = "";
+
+        }).catch(error => {
+            console.log("error");
+            let errorResponse = error.response.data;
+
+            console.log(errorResponse);
+            document.getElementById("errorMsg").innerHTML = errorResponse.message;
+
+        });
+        
+    }
+    
+</script>
+</body>
+</html> 
