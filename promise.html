@@ -162,7 +162,7 @@ console.log("end of file!");
         let response = axiosInstance(url, options);
 
         response.then(response => {
-        
+            let data = response.data;
             let content = "";
             content += "id: "+data.id+"<br>";
             content += "firstName: "+data.firstName+"<br>";
