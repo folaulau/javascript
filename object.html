@@ -32,7 +32,8 @@
 
     </div>
 </div>
-<script>
+<script type="module">
+    import {Utils} from './utility.js';
     /*
     * 
     */
@@ -108,6 +109,15 @@
     let lau = Object.assign({}, person);
     console.log("lau", lau);
 
+    /*
+    * Clone object with JSON.stringify and JSON.parse
+    */
+    console.log("Clone object with JSON.stringify and JSON.parse");
+    let kinga = Utils.copyObject(person);
+    console.log("kinga", kinga);
+    kinga.age = 20;
+    console.log("kinga", kinga);
+    console.log("person", person);
 </script>
 </body>
 </html> 
