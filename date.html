@@ -100,7 +100,8 @@
 </div>
 <br>
 
-<script>
+<script type="module">
+    import {Utils} from './utility.js';
 
     async function getUser(){
         console.log("getUser");
@@ -128,9 +129,9 @@
             content += "lastName: "+data.lastName+"<br>";
             content += "email: "+data.email+"<br>";
             content += "<b>createdAt UTC:</b> "+data.createdAt+"<br>";
-            content += "createdAt: "+new Date(data.createdAt).toLocaleDateString()+" "+new Date(data.createdAt).toLocaleTimeString()+"<br>";
+            content += "createdAt: "+Utils.utcToLocalDateTime(data.createdAt)+"<br>";
             content += "<b>updatedAt UTC:</b> "+data.updatedAt+"<br>";
-            content += "updatedAt: "+new Date(data.updatedAt).toLocaleDateString()+" "+new Date(data.updatedAt).toLocaleTimeString()+"<br>";
+            content += "updatedAt: "+Utils.utcToLocalDateTime(data.updatedAt)+"<br>";
 
             document.getElementById("getUserContent").innerHTML = content;
             document.getElementById("errorMsg").innerHTML = "";
@@ -153,8 +154,8 @@
     document.getElementById("localeTimeString").innerHTML = today.toLocaleTimeString();
 
     //localeDateTimeString
-    console.log("localeDateTimeString: ", today.toLocaleDateString()+" "+today.toLocaleTimeString());
-    document.getElementById("localeDateTimeString").innerHTML = today.toLocaleDateString()+" "+today.toLocaleTimeString();
+    console.log("localeDateTimeString: ", Utils.utcToLocalDateTime(today));
+    document.getElementById("localeDateTimeString").innerHTML = Utils.utcToLocalDateTime(today);
 
     console.log("UTCLocaleDateTimeString: ", today.toUTCString());
     document.getElementById("UTCLocaleDateTimeString").innerHTML = today.toUTCString();
@@ -163,7 +164,7 @@
 
     // Date(year, month, day, hours, minutes, seconds, milliseconds)
     let _1999 = new Date(1999, 10, 2);
-    console.log("_1999: ", _1999.toLocaleDateString()+" "+_1999.toLocaleTimeString());
+    console.log("_1999: ", Utils.utcToLocalDateTime(_1999));
 
     /*
     * Create a UTC date 
