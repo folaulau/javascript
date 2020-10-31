@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Javascript Tutorial</title>
+        <!-- jQuery -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <!-- Bootstrap -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    </head>
+<body class="container">
+
+<h2 class="text-center">Javascript this keyword Tutorial</h2>
+<br>
+<div class="row">
+    <div class="col-6">
+        this in an event handler
+    </div>
+    <div class="col-6">
+        <button onclick="this.style.color='red'" type="button" class="btn btn-outline-primary">Ping Me Red</button>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<script>
+    //"use strict";
+
+    /*
+    * Global this
+    * Alone, this refers to the global object.
+    */
+    var pageName = "This Keyword";
+
+    function showPageName(){
+        console.log("pageName: " + this.pageName);//This Keyword
+    }
+
+    showPageName();
+
+    /**
+    * In a method, this refers to the owner object
+    */
+
+    let person = {
+        firstName: "John",
+        lastName : "Doe",
+        id       : 5566,
+        fullName : function() {// person is the owner of this function
+            return this.firstName + " " + this.lastName;
+        }
+    };
+
+    console.log("fullName: "+person.fullName());//John Doe
+
+    /**
+    * this in Event Handlers
+    * In HTML event handlers, this refers to the HTML element that received the event.
+    */
+
+    
+
+    /*
+    * this in arrow funciton
+    * Arrow functions are special: they don’t have their “own” this. 
+    * If we reference this from such a function, it’s taken from the outer “normal” function.
+    */
+
+    let user = {
+        name: "Folau",
+        sayHi() {
+
+            //If we reference this from such a function, it’s taken from the outer “normal” function.
+            let arrow = () => console.log("arrow name: "+this.name);//arrow name: Folau
+            arrow();
+
+            function sayMyName(){
+
+                //this.name here is looking for a field called name within the sayHi() method.
+                console.log("my name: "+this.name);//my name: 
+            }
+            sayMyName();
+        }
+    };
+
+    user.sayHi();
+
+</script>
+</body>
+</html> 
