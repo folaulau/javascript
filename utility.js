@@ -2,6 +2,9 @@
 
 let Utils = {
 
+    // You should avoid using functions in JSON, 
+    // the functions will lose their scope, 
+    // and you would have to use eval() to convert them back into functions.
     copyObject(obj){
         let jsonString = JSON.stringify(obj);
         return JSON.parse(jsonString);
