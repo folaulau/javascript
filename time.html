@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Javascript Tutorial</title>
+        <!-- jQuery -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <!-- Bootstrap -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    </head>
+<body class="container">
+
+<h2 class="text-center">Javascript Time Tutorial</h2>
+<div class="row">
+    <div class="col-3">
+        Clock
+    </div>
+    <div class="col-4" id="clock">
+
+    </div>
+</div>
+<script type="module">
+
+
+    /**
+    * setTimeout(function, milliseconds); 
+    * only called once in the execution.
+    * It does not block execution.
+    */
+
+    // wait 3 seconds and then execute function
+    let timeout = setTimeout(function(){
+        console.log("timeout!");
+    }, 3000);
+
+    console.log("startTime!");
+
+    /**
+     * clearTimeout
+     * The clearTimeout() method stops the execution of the function specified in setTimeout().
+     */
+
+    // stop timeout from executing.
+    clearTimeout(timeout);
+
+    /*
+    * Clock with setTimeout
+    */
+    startTime();
+
+    function startTime() {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+        var t = setTimeout(startTime, 500);
+
+    }
+    function checkTime(i) {
+
+        // add zero in front of numbers < 10
+        if (i < 10) {
+            i = "0" + i;
+        }
+
+        return i;
+    }
+
+
+    /**
+     * setInterval(function, milliseconds)
+     * The setInterval() method repeats a given function at every given time-interval.
+     * 
+     */
+
+    let interval = setInterval(() => {
+        console.log("fire interval!");
+    }, 1000);
+
+
+    /**
+     * 
+     * clearInterval(interval);
+     */
+
+    setTimeout(() => {
+        // stom interval after 6 seconds
+        clearInterval(interval);
+    }, 6000);
+     
+
+
+</script>
+</body>
+</html> 
